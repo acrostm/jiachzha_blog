@@ -1,6 +1,4 @@
-# <div align="center">fuxiaochen</div>
-
-**本项目是一个个人学习技术和探索的项目，随时可能有 breaking change。不建议！！！不建议 ！！！不建议 ！！！用于生产环境，欢迎一起互相交流学习～**
+# <div align="center">Jiachzha_blog</div>
 
 ## 简介
 
@@ -9,7 +7,6 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
-[![Blog](https://img.shields.io/badge/-fuxiaochen.com-0ea5e9?style=for-the-badge&logo=Bloglovin&logoColor=white&label=个人博客)](https://fuxiaochen.com/)
 
 一个简单的个人博客网站，使用 Next.js + React 18 + TypeScript + Shadcn/ui + Tailwind CSS 开发
 
@@ -56,12 +53,12 @@
 - Git
 - Pnpm
 - Node.js >= 20
-- Docker、Docker Compose
 
 ### 获取项目代码
 
 ```bash
-git clone https://github.com/aifuxi/fuxiaochen.git
+# this is private repository for now
+git clone https://github.com/acrostm/jiachzha_blog.git
 ```
 
 ### 安装依赖
@@ -74,43 +71,9 @@ pnpm install
 
 ### 准备数据库
 
-开发环境，推荐使用 Docker Compose 启动一个 MySQL，项目已经准备好了一个 `docker-compose.yaml` 文件
-
-#### Mac 或者 Linux
-
-项目已经准备好了一个 `Makefile` 文件
-
-在项目根目录下运行
-
-```bash
-# Docker Compose 只启动 MySQL
-make run_mysql8
-
-# Docker Compose 只启动 Redis
-make run_redis
-
-# Docker Compose 启动全部服务
-make run_all
-```
-
-#### Windows
-
-在项目根目录下运行
-
-```bash
-# Docker Compose 只启动 MySQL
-docker-compose up -d mysql8
-
-# Docker Compose 只启动 Redis
-docker-compose up -d redis
-
-# Docker Compose 启动全部服务
-docker-compose up -d
-```
+开发环境，推荐使用 Docker Compose 启动一个 MySQL
 
 #### 更多
-
-更多信息可查看项目内的 `docker-compose.yaml` 和 `Makefile` 文件
 
 ### 准备 env 文件和配置
 
@@ -123,7 +86,7 @@ docker-compose up -d
 ```.env
 # DATABASE_URL 格式为 mysql://用户名:用户密码@数据库IP:数据库端口/需要连接的数据库名
 # 根据实际情况进行修改
-DATABASE_URL="mysql://root:123456@127.0.0.1:3306/fuxiaochen"
+DATABASE_URL="mysql://root:123456@127.0.0.1:3306/jiachzha_blog"
 
 # 根据实际情况进行修改
 REDIS_HOST="127.0.0.1"
@@ -198,23 +161,11 @@ pnpm db:studio
 
 ## 部署
 
-- 视频演示：[手摸手教你如何部署fuxiaochen博客网站](https://www.bilibili.com/video/BV1vz421f7Jr/?share_source=copy_web&vd_source=8b381d6ef205d4d72391e78af40279c0)
-
-- 部署文档：[手摸手教你如何部署fuxiaochen博客网站](https://fuxiaochen.com/blog/hand-to-hand-teaching-you-how-to-deploy-fuxiaochen-blog-site)
-
 ## 反馈
 
-遇到任何问题，欢迎给我发邮件反馈，欢迎提 [Issue](https://github.com/aifuxi/fuxiaochen/issues)
 
 ## Star History
 
-<a href="https://star-history.com/#aifuxi/fuxiaochen&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=aifuxi/fuxiaochen&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=aifuxi/fuxiaochen&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=aifuxi/fuxiaochen&type=Date" />
- </picture>
-</a>
 
 ## 感谢
 
