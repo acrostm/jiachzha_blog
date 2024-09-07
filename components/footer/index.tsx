@@ -72,13 +72,13 @@ export const Footer = async () => {
       <Wrapper className="flex flex-col items-center justify-center space-y-1 pt-24 text-sm text-muted-foreground md:flex-row md:space-x-4 md:space-y-0">
         <Link
           target="_blank"
-          aria-label={GONG_AN_NUMBER}
-          href={GONG_AN_LINK}
+          aria-label="#"
+          href="#"
           className="order-2 flex items-center transition-colors hover:font-semibold hover:text-primary md:order-1"
         >
           <img
-            src={ImageAssets.gongan}
-            alt={GONG_AN_NUMBER}
+            src="#"
+            alt="GONG_AN_NUMBER"
             className="mr-1 size-[18px] -translate-y-px"
           />
           <span>{GONG_AN_NUMBER}</span>
@@ -86,8 +86,8 @@ export const Footer = async () => {
 
         <Link
           target="_blank"
-          aria-label={BEI_AN_NUMBER}
-          href={BEI_AN_LINK}
+          aria-label="#"
+          href="#"
           className="order-1 flex items-center transition-colors hover:font-semibold hover:text-primary md:order-2"
         >
           {BEI_AN_NUMBER}

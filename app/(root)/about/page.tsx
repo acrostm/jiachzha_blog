@@ -46,7 +46,7 @@ export default function Page() {
 
   return (
     <div className="flex w-full flex-col justify-center px-6 pb-24 pt-8">
-      <section className="w-screen-wrapper prose prose-neutral mx-auto max-w-screen-wrapper dark:prose-invert">
+      <section className="prose prose-neutral mx-auto max-w-screen-wrapper dark:prose-invert">
         <h2 className="text-3xl font-bold md:text-4xl">关于</h2>
         <div
           className="animate-fade-up animate-ease-in-out"

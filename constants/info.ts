@@ -1,14 +1,14 @@
 /** 邮箱 */
-export const EMAIL = "aifuxi.js@gmail.com";
+export const EMAIL = "jiachzha@gmail.com";
 
 /** 昵称 */
-export const NICKNAME = "付小晨";
+export const NICKNAME = "Jiachzha";
 
 /** Github 个人页 */
-export const GITHUB_PAGE = "https://github.com/aifuxi";
+export const GITHUB_PAGE = "https://github.com/acrostm";
 
 /** 网站代码 Github 地址 */
-export const SOURCE_CODE_GITHUB_PAGE = "https://github.com/aifuxi/fuxiaochen";
+export const SOURCE_CODE_GITHUB_PAGE = "https://github.com/aacrostm";
 
 /** 掘金个人页 */
 export const JUEJIN_PAGE = "https://juejin.cn/user/2647279733052494";
@@ -23,14 +23,14 @@ export const WEBSITE = `${NICKNAME}`;
 export const SLOGAN = "努力做一个更好的程序员";
 
 /** 网站ICP备案号 */
-export const BEI_AN_NUMBER = "赣ICP备2024026230号";
+// export const BEI_AN_NUMBER = "---";
 
 /** 工信部网站链接 */
-export const BEI_AN_LINK = "https://beian.miit.gov.cn";
+// export const BEI_AN_LINK = "---";
 
 /** 公安备案号 */
-export const GONG_AN_NUMBER = "赣公网安备36100002000386号";
+// export const GONG_AN_NUMBER = "赣公网安备36100002000386号";
 
 /** 公安网站链接 */
-export const GONG_AN_LINK =
-  "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=36100002000386";
+// export const GONG_AN_LINK =
+//   "http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=36100002000386";
