@@ -3,10 +3,6 @@ import React from "react";
 import Link from "next/link";
 
 import {
-  BEI_AN_LINK,
-  BEI_AN_NUMBER,
-  GONG_AN_LINK,
-  GONG_AN_NUMBER,
   ImageAssets,
   NICKNAME,
   PATHS,
@@ -81,7 +77,7 @@ export const Footer = async () => {
             alt="GONG_AN_NUMBER"
             className="mr-1 size-[18px] -translate-y-px"
           />
-          <span>{GONG_AN_NUMBER}</span>
+          <span>#</span>
         </Link>
 
         <Link
@@ -90,7 +86,7 @@ export const Footer = async () => {
           href="#"
           className="order-1 flex items-center transition-colors hover:font-semibold hover:text-primary md:order-2"
         >
-          {BEI_AN_NUMBER}
+          #
         </Link>
         <div className="order-3">
           &copy; {new Date().getFullYear()} {NICKNAME}&nbsp;&nbsp;·&nbsp;&nbsp;

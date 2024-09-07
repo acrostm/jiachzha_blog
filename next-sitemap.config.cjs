@@ -1,4 +1,4 @@
-const siteUrl = process.env.SITE_URL || "https://fuxiaochen.com";
+const siteUrl = process.env.SITE_URL || "https://jiachzha.com";
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
