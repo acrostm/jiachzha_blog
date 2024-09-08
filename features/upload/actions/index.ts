@@ -6,13 +6,13 @@ import path from "node:path";
 import { readChunk } from "read-chunk";
 import sharp from "sharp";
 
-import { OSS_UPLOAD_DIR } from "@/config";
+import { R2_UPLOAD_DIR } from "@/config";
 
 import { isProduction } from "@/utils/env";
 
 import { ERROR_NO_PERMISSION } from "@/constants";
 import { noPermission } from "@/features/user";
-import { aliOSS } from "@/lib/ali-oss";
+import { s3 } from "@/lib/r2-storage";
 import { createCuid } from "@/lib/cuid";
 
 const UPLOAD_DIR = "uploads";
@@ -96,15 +96,16 @@ const compressImage = async (input: string): Promise<string> => {
   });
 };
 
-const uploadToOSS = async (input: string) => {
+// TODO ali-oss to r2
+const uploadToR2 = async (input: string) => {
   const inputFilePath = getFilePath(input);
   const fileName = path.basename(inputFilePath);
   const buffer = fs.readFileSync(inputFilePath);
-  const { name } = await aliOSS.put(
-    `${OSS_UPLOAD_DIR}/${fileName}`,
+  const { name } = await s3.put(
+    `${R2_UPLOAD_DIR}/${fileName}`,
     Buffer.from(buffer),
   );
-  let url = aliOSS.generateObjectUrl(name);
+  let url = s3.generateObjectUrl(name);
   if (url) {
     // 阿里云 OSS 上传后返回的链接是默认是http协议的（但实际上它是也支持https），这里手动替换成https
     // 因为线上环境网站是使用https协议的，网站里面所有的链接/请求都应该走https（最佳实践是这样）
@@ -129,7 +130,7 @@ export const uploadFile = async (
   url = await compressImage(url);
 
   if (isProduction()) {
-    const ossURL = await uploadToOSS(url);
+    const ossURL = await uploadToR2(url);
     // 删除本地的压缩过后的图片文件
     const result = await deleteFile(url);
     if (result) {
