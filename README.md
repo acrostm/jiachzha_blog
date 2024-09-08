@@ -158,33 +158,3 @@ pnpm db:studio
 ### 自定义页面的信息
 
 你可能想修改页面中的信息，请修改 `constants/info.ts` 文件
-
-## 部署
-
-## 反馈
-
-
-## Star History
-
-
-## 感谢
-
-本站开发时，借鉴了以下这些优秀网站（排名不分先后）的很多设计
-
-- [shadcn/ui](https://ui.shadcn.com/)
-
-- [薇尔薇](https://vio.vin/)
-
-- [小植同学](https://blog.xiaoztx.top/)
-
-- [掘金](https://juejin.cn/extension)
-
-- [Orbstack · Blog](https://orbstack.dev/blog)
-
-- [Shiro](https://github.com/Innei/Shiro)
-
-- [LobeHub](https://lobehub.com/zh/blog)
-
-## LICENCE
-
-MIT

@@ -13,11 +13,7 @@ const fontFamily =
     console.log(ASCII_ART_FONT);
     console.log(
       `%c作者：${NICKNAME}`,
-      `color: #999; font-size: 2rem;${fontFamily}`,
-    );
-    console.log(
-      `%c哎哟，觉得小老弟代码写的不错？点个 ⭐，借鉴借鉴 👇`,
-      `color: #f43f5e; font-size: 1rem;${fontFamily}`,
+      `color: #999; font-size: 1rem;${fontFamily}`,
     );
     console.log(
       `%c网站源码 Github：${SOURCE_CODE_GITHUB_PAGE}`,

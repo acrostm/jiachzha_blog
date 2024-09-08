@@ -20,6 +20,7 @@ export const s3 =
       accessKeyId: R2_ACCESS_KEY_ID ?? "",
       secretAccessKey: R2_SECRET_ACCESS_KEY ?? "",
     },
+    forcePathStyle: true,
   });
 
 if (NODE_ENV !== "production") globalForS3.s3Client = s3;

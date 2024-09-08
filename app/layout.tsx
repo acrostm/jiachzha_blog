@@ -36,6 +36,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
           type="image/svg+xml"
           href="/images/fuxiaochen-dark.svg"
         />
+        {/*TODO*/}
         {/* Google Search Console 验证 */}
         <meta
           name="google-site-verification"
@@ -61,7 +62,8 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
           </TooltipProvider>
         </ThemeProvider>
       </body>
-
+      
+      {/*TODO*/}
       {/* Google Analytics  */}
       {NODE_ENV === "production" && <GoogleAnalytics gaId="G-1MVP2JY3JG" />}
     </html>

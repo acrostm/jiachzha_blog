@@ -22,6 +22,7 @@
   "dependencies": {
     "@auth/prisma-adapter": "^2.1.0",
     "@aws-sdk/client-s3": "^3.645.0",
+    "@aws-sdk/s3-request-presigner": "^3.645.0",
     "@bytemd/plugin-breaks": "^1.21.0",
     "@bytemd/plugin-frontmatter": "^1.21.0",
     "@bytemd/plugin-gfm": "^1.21.0",
@@ -101,7 +102,6 @@
     "@tailwindcss/typography": "^0.5.9",
     "@tanstack/eslint-plugin-query": "^5.20.1",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/ali-oss": "^6.16.8",
     "@types/bcryptjs": "^2.4.6",
     "@types/eslint": "^8.44.7",
     "@types/lodash-es": "^4.17.8",

@@ -6,13 +6,16 @@ import path from "node:path";
 import { readChunk } from "read-chunk";
 import sharp from "sharp";
 
-import { R2_UPLOAD_DIR } from "@/config";
-
 import { isProduction } from "@/utils/env";
 
 import { ERROR_NO_PERMISSION } from "@/constants";
 import { noPermission } from "@/features/user";
+
+import { PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 import { s3 } from "@/lib/r2-storage";
+import { R2_UPLOAD_DIR, R2_BUCKET } from "@/config";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+
 import { createCuid } from "@/lib/cuid";
 
 const UPLOAD_DIR = "uploads";
@@ -101,18 +104,53 @@ const uploadToR2 = async (input: string) => {
   const inputFilePath = getFilePath(input);
   const fileName = path.basename(inputFilePath);
   const buffer = fs.readFileSync(inputFilePath);
-  const { name } = await s3.put(
-    `${R2_UPLOAD_DIR}/${fileName}`,
-    Buffer.from(buffer),
-  );
-  let url = s3.generateObjectUrl(name);
-  if (url) {
-    // 阿里云 OSS 上传后返回的链接是默认是http协议的（但实际上它是也支持https），这里手动替换成https
-    // 因为线上环境网站是使用https协议的，网站里面所有的链接/请求都应该走https（最佳实践是这样）
-    // 要不然浏览器搜索栏会有个小感叹号，不太好看
-    url = url.replace(/http:\/\//g, "https://");
+  
+  const key = `${R2_UPLOAD_DIR}/${fileName}`;
+  
+  const uploadParams = {
+    Bucket: R2_BUCKET,
+    Key: key,
+    Body: buffer,
+    ContentType: getContentType(fileName),
+  };
+  try {
+    const command = new PutObjectCommand(uploadParams);
+    await s3.send(command);
+
+    // Generate a signed URL that's valid for 1 hour (3600 seconds)
+    const getObjectParams = { Bucket: R2_BUCKET, Key: key };
+    const getCommand = new GetObjectCommand(getObjectParams);
+    const signedUrl = await getSignedUrl(s3, getCommand, { expiresIn: 3600 });
+
+    // If R2_PUBLIC_URL is set, use it to construct a public URL
+    // if (R2_PUBLIC_URL) {
+    //   return `${R2_PUBLIC_URL}/${key}`;
+    // }
+
+    // Otherwise, return the signed URL
+    console.log('signedUrl:', signedUrl);
+    return signedUrl;
+  } catch (error) {
+    console.error('Error uploading file to R2:', error);
+    throw error;
   }
-  return url;
+};
+
+const getContentType = (fileName: string): string => {
+  const ext = path.extname(fileName).toLowerCase();
+  switch (ext) {
+    case '.jpg':
+    case '.jpeg':
+      return 'image/jpeg';
+    case '.png':
+      return 'image/png';
+    case '.gif':
+      return 'image/gif';
+    case '.webp':
+      return 'image/webp';
+    default:
+      return 'application/octet-stream';
+  }
 };
 
 export const uploadFile = async (
