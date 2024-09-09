@@ -1,22 +1,21 @@
 "use server";
 
+import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import imageType, { minimumBytes } from "image-type";
 import fs from "node:fs";
 import path from "node:path";
 import { readChunk } from "read-chunk";
 import sharp from "sharp";
 
+import { R2_BUCKET, R2_UPLOAD_DIR } from "@/config";
+
 import { isProduction } from "@/utils/env";
 
 import { ERROR_NO_PERMISSION } from "@/constants";
 import { noPermission } from "@/features/user";
-
-import { PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
-import { s3 } from "@/lib/r2-storage";
-import { R2_UPLOAD_DIR, R2_BUCKET } from "@/config";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-
 import { createCuid } from "@/lib/cuid";
+import { s3 } from "@/lib/r2-storage";
 
 const UPLOAD_DIR = "uploads";
 const PUBLIC_DIR = "public";
@@ -99,56 +98,55 @@ const compressImage = async (input: string): Promise<string> => {
   });
 };
 
-// const uploadToR2 = async (input: string) => {
-//   const inputFilePath = getFilePath(input);
-//   const fileName = path.basename(inputFilePath);
-//   const buffer = fs.readFileSync(inputFilePath);
-//  
-//   const key = `/${fileName}`;
-//  
-//   const uploadParams = {
-//     Bucket: R2_BUCKET,
-//     Key: key,
-//     Body: buffer,
-//     ContentType: getContentType(fileName),
-//   };
-//   try {
-//     const command = new PutObjectCommand(uploadParams);
-//     await s3.send(command);
-//
-//     // Generate a signed URL that's valid for 1 hour (3600 seconds)
-//     const getObjectParams = { Bucket: R2_BUCKET, Key: key };
-//     const getCommand = new GetObjectCommand(getObjectParams);
-//     const signedUrl = await getSignedUrl(s3, getCommand, { expiresIn: 3600 });
-//
-//     // If R2_PUBLIC_URL is set, use it to construct a public URL
-//     // if (R2_PUBLIC_URL) {
-//     //   return `${R2_PUBLIC_URL}/${key}`;
-//     // }
-//
-//     // Otherwise, return the signed URL
-//     console.log('signedUrl:', signedUrl);
-//     return signedUrl;
-//   } catch (error) {
-//     console.error('Error uploading file to R2:', error);
-//     throw error;
-//   }
-// };
+const uploadToR2 = async (input: string) => {
+  const inputFilePath = getFilePath(input);
+  const fileName = path.basename(inputFilePath);
+  const buffer = fs.readFileSync(inputFilePath);
+
+  const key = `${R2_UPLOAD_DIR}${fileName}`;
+
+  const uploadParams = {
+    Bucket: R2_BUCKET,
+    Key: key,
+    Body: buffer,
+    ContentType: getContentType(fileName),
+  };
+  try {
+    const command = new PutObjectCommand(uploadParams);
+    await s3.send(command);
+
+    // Generate a signed URL that's valid for 1 hour (3600 seconds)
+    const getObjectParams = { Bucket: R2_BUCKET, Key: key };
+    const getCommand = new GetObjectCommand(getObjectParams);
+    const signedUrl = await getSignedUrl(s3, getCommand, { expiresIn: 3600 });
+
+    // If R2_PUBLIC_URL is set, use it to construct a public URL
+    // if (R2_PUBLIC_URL) {
+    //   return `${R2_PUBLIC_URL}/${key}`;
+    // }
+
+    // Otherwise, return the signed URL
+    return signedUrl;
+  } catch (error) {
+    console.error("Error uploading file to R2:", error);
+    throw error;
+  }
+};
 
 const getContentType = (fileName: string): string => {
   const ext = path.extname(fileName).toLowerCase();
   switch (ext) {
-    case '.jpg':
-    case '.jpeg':
-      return 'image/jpeg';
-    case '.png':
-      return 'image/png';
-    case '.gif':
-      return 'image/gif';
-    case '.webp':
-      return 'image/webp';
+    case ".jpg":
+    case ".jpeg":
+      return "image/jpeg";
+    case ".png":
+      return "image/png";
+    case ".gif":
+      return "image/gif";
+    case ".webp":
+      return "image/webp";
     default:
-      return 'application/octet-stream';
+      return "application/octet-stream";
   }
 };
 
@@ -161,16 +159,15 @@ export const uploadFile = async (
   }
   // Get file from formData
   const file = formData.get("file") as File;
-  
-  console.log('file:', file);
 
   let url = await saveFile(file);
   const localFileUrl = url;
   url = await compressImage(url);
 
   if (isProduction()) {
-    // const signedUrl = await uploadToR2(url);
-    const signedUrl = "https://r2.zj.cyou/Hannya_shingyo.png";
+    const signedUrl = await uploadToR2(url);
+
+    // const signedUrl = "https://r2.zj.cyou/Hannya_shingyo.png";
     // 删除本地的压缩过后的图片文件
     const result = await deleteFile(url);
     if (result) {

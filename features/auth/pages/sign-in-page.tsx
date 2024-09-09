@@ -11,12 +11,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { IconBrandGithub } from "@/components/icons";
+import { IconBrandGithub, IconLogoGoogle } from "@/components/icons";
 import { ModeToggle } from "@/components/mode-toggle";
 
 import { PATHS } from "@/constants";
 
-import { signInWithGithub } from "../actions/sign-in";
+import { signInWithGithub, signInWithGoogle } from "../actions/sign-in";
 
 export const SignInPage = () => {
   const router = useRouter();
@@ -40,6 +40,14 @@ export const SignInPage = () => {
               onClick={handleSignInWithGithub}
             >
               <IconBrandGithub className="mr-2 text-base" /> 使用 Github 登录
+            </Button>
+            <Button
+              variant="default"
+              className="!w-full"
+              type="button"
+              onClick={handleSignInWithGoogle}
+            >
+              <IconLogoGoogle className="mr-2 text-base" /> 使用 Google 登录
             </Button>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
@@ -67,6 +75,10 @@ export const SignInPage = () => {
 
   async function handleSignInWithGithub() {
     await signInWithGithub();
+  }
+
+  async function handleSignInWithGoogle() {
+    await signInWithGoogle();
   }
 
   function handleGoHome() {
