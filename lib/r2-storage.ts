@@ -3,7 +3,6 @@ import { S3Client } from "@aws-sdk/client-s3";
 import {
   NODE_ENV,
   R2_ACCESS_KEY_ID,
-  R2_BUCKET,
   R2_BUCKET_REGION,
   R2_ENDPOINT,
   R2_SECRET_ACCESS_KEY,

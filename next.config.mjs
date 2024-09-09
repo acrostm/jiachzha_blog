@@ -18,19 +18,19 @@ const config = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**.aliyuncs.com",
+        hostname: "**.zj.cyou",
       },
       {
         protocol: "http",
-        hostname: "**.aliyuncs.com",
+        hostname: "**.zj.cyou",
       },
       {
         protocol: "https",
-        hostname: "placehold.co",
+        hostname: "*",
       },
       {
         protocol: "http",
-        hostname: "placehold.co",
+        hostname: "*",
       },
       {
         protocol: "http",

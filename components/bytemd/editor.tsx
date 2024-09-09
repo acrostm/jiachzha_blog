@@ -32,19 +32,22 @@ export const BytemdEditor = ({
       fd.append("file", file);
 
       const toastID = showLoadingToast("上传中");
-      const { url, error } = await uploadFile(fd);
-      hideToast(toastID);
+      try {
+        const { url, error } = await uploadFile(fd);
+        hideToast(toastID);
+        if (error) {
+          showErrorToast(error);
+          return [];
+        }
 
-      if (error) {
-        showErrorToast(error);
-        return [];
+        if (url) {
+          showSuccessToast("上传成功");
+          return [{ url }];
+        }
+      } catch (error) {
+        hideToast(toastID);
+        showErrorToast("上传失败");
       }
-
-      if (url) {
-        showSuccessToast("上传成功");
-        return [{ url }];
-      }
-
       return [];
     } else {
       return [];
