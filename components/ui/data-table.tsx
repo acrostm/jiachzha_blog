@@ -84,7 +84,7 @@ export function DataTable<TData, TValue>({
         </TableHeader>
         <TableBody>{renderContent()}</TableBody>
       </Table>
-      <div className="flex items-center px-4">
+      <div className="flex items-center border-t px-4">
         <div className="flex-1 text-sm text-muted-foreground">
           {renderInfo()}
         </div>
