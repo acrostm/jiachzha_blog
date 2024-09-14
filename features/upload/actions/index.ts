@@ -2,57 +2,20 @@
 
 import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import imageType, { minimumBytes } from "image-type";
-import fs from "node:fs";
+import imageType from "image-type";
 import path from "node:path";
-import { readChunk } from "read-chunk";
 import sharp from "sharp";
 
 import { R2_BUCKET, R2_UPLOAD_DIR } from "@/config";
-
-import { isProduction } from "@/utils/env";
 
 import { ERROR_NO_PERMISSION } from "@/constants";
 import { noPermission } from "@/features/user";
 import { createCuid } from "@/lib/cuid";
 import { s3 } from "@/lib/r2-storage";
 
-const UPLOAD_DIR = "uploads";
-const PUBLIC_DIR = "public";
-
-const getFilePath = (input: string) => {
-  return path.join(process.cwd(), PUBLIC_DIR, input);
-};
-
-const saveFile = async (file: File) => {
-  const fileArrayBuffer = await file.arrayBuffer();
-  const fileExtension = path.extname(file.name);
-  const fileNameWithoutExtension = file.name.replace(fileExtension, "");
-  const baseURL = `/${UPLOAD_DIR}/${fileNameWithoutExtension}-${createCuid()}${fileExtension}`;
-  const filePath = getFilePath(baseURL);
-
-  fs.writeFileSync(filePath, Buffer.from(fileArrayBuffer));
-
-  return baseURL;
-};
-
-const deleteFile = async (input: string) => {
-  const filePath = getFilePath(input);
-
-  return new Promise((resolve, reject) => {
-    fs.unlink(filePath, (error) => {
-      if (error) {
-        reject(error.message);
-      }
-      resolve("");
-    });
-  });
-};
-
-const getImageInfo = async (filePath: string) => {
-  const buffer = await readChunk(filePath, { length: minimumBytes });
-
-  const typeInfo = await imageType(buffer);
+const getImageInfo = async (file: File) => {
+  const buffer = await file.arrayBuffer();
+  const typeInfo = await imageType(new Uint8Array(buffer));
 
   return {
     info: typeInfo,
@@ -63,54 +26,34 @@ const getImageInfo = async (filePath: string) => {
 };
 
 // 如果不是图片，原样返回，是图片返回压缩后的图片路径
-const compressImage = async (input: string): Promise<string> => {
-  const inputFilePath = getFilePath(input);
-  const { isGif, isImage, isWebp } = await getImageInfo(inputFilePath);
+const compressImage = async (file: File): Promise<Buffer> => {
+  const buffer = await file.arrayBuffer();
+  const { isGif, isImage, isWebp } = await getImageInfo(file);
 
   if (!isImage || isWebp) {
-    return input;
+    return Buffer.from(buffer);
   }
+
   let animated = false;
   if (isGif) {
     animated = true;
   }
 
-  const fileName = path.basename(inputFilePath);
-  const fileExtension = path.extname(fileName);
-  const fileNameWithouExtension = fileName.replace(fileExtension, "");
-
-  const newFileName = `${fileNameWithouExtension}.webp`;
-  const output = `/${UPLOAD_DIR}/${newFileName}`;
-  const outputFilePath = getFilePath(output);
-
-  return new Promise((resolve, reject) => {
-    // 加载图片
-    sharp(inputFilePath, { animated, limitInputPixels: false })
-      .webp({ lossless: true })
-      .toFile(outputFilePath, (error) => {
-        if (error) {
-          // TODO: 记录日志
-          reject(error.message);
-        } else {
-          resolve(output);
-        }
-      });
-  });
+  return sharp(Buffer.from(buffer), { animated, limitInputPixels: false })
+    .webp({ lossless: true })
+    .toBuffer();
 };
 
-const uploadToR2 = async (input: string) => {
-  const inputFilePath = getFilePath(input);
-  const fileName = path.basename(inputFilePath);
-  const buffer = fs.readFileSync(inputFilePath);
-
-  const key = `${R2_UPLOAD_DIR}${fileName}`;
+const uploadToR2 = async (file: File, compressedFile: Buffer) => {
+  const key = `${R2_UPLOAD_DIR}${createCuid()}-${file.name}`;
 
   const uploadParams = {
     Bucket: R2_BUCKET,
     Key: key,
-    Body: buffer,
-    ContentType: getContentType(fileName),
+    Body: compressedFile,
+    ContentType: getContentType(file.name),
   };
+
   try {
     const command = new PutObjectCommand(uploadParams);
     await s3.send(command);
@@ -119,11 +62,6 @@ const uploadToR2 = async (input: string) => {
     const getObjectParams = { Bucket: R2_BUCKET, Key: key };
     const getCommand = new GetObjectCommand(getObjectParams);
     const signedUrl = await getSignedUrl(s3, getCommand, { expiresIn: 3600 });
-
-    // If R2_PUBLIC_URL is set, use it to construct a public URL
-    // if (R2_PUBLIC_URL) {
-    //   return `${R2_PUBLIC_URL}/${key}`;
-    // }
 
     // Otherwise, return the signed URL
     return signedUrl;
@@ -154,36 +92,32 @@ export const uploadFile = async (
   formData: FormData,
 ): Promise<{ error?: string; url?: string }> => {
   if (await noPermission()) {
-    // throw ERROR_NO_PERMISSION;
     return { error: ERROR_NO_PERMISSION.message };
   }
+
   // Get file from formData
   const file = formData.get("file") as File;
+  if (!file) {
+    return { error: "No file found" };
+  }
 
-  let url = await saveFile(file);
-  const localFileUrl = url;
-  url = await compressImage(url);
+  const { isImage } = await getImageInfo(file);
+  if (!isImage) {
+    return { error: "Uploaded file is not an image" };
+  }
 
-  if (isProduction()) {
-    const signedUrl = await uploadToR2(url);
+  const fileSize = file.size;
+  const sizeLimit = 1024 * 1024 * 10; // 10MB
 
-    // const signedUrl = "https://r2.zj.cyou/Hannya_shingyo.png";
-    // 删除本地的压缩过后的图片文件
-    const result = await deleteFile(url);
-    if (result) {
-      // TODO: 记录日志, 删除文件失败
-    }
+  if (fileSize > sizeLimit) {
+    return { error: "File size too large" };
+  }
+
+  try {
+    const compressedFile = await compressImage(file);
+    const signedUrl = await uploadToR2(file, compressedFile);
     return { url: signedUrl };
+  } catch (error) {
+    return { error: "Upload failed" };
   }
-
-  // 如果是图片且已经被压缩过
-  if (localFileUrl !== url) {
-    // 删除旧的图片文件
-    const result = await deleteFile(localFileUrl);
-    if (result) {
-      // TODO: 记录日志, 删除文件失败
-    }
-  }
-
-  return { url };
 };

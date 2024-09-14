@@ -27,31 +27,28 @@ export const BytemdEditor = ({
 }: BytemdEditorProps) => {
   const handleUploadImages: EditorProps["uploadImages"] = async (files) => {
     const file = files[0];
-    if (file) {
-      const fd = new FormData();
-      fd.append("file", file);
+    if (!file) return [];
+    const fd = new FormData();
+    fd.append("file", file);
 
-      const toastID = showLoadingToast("上传中");
-      try {
-        const { url, error } = await uploadFile(fd);
-        hideToast(toastID);
-        if (error) {
-          showErrorToast(error);
-          return [];
-        }
-
-        if (url) {
-          showSuccessToast("上传成功");
-          return [{ url }];
-        }
-      } catch (error) {
-        hideToast(toastID);
-        showErrorToast("上传失败");
+    const toastID = showLoadingToast("上传中");
+    try {
+      const { url, error } = await uploadFile(fd);
+      hideToast(toastID);
+      if (error) {
+        showErrorToast(error);
+        return [];
       }
-      return [];
-    } else {
-      return [];
+
+      if (url) {
+        showSuccessToast("上传成功");
+        return [{ url, alt: file.name, title: file.name }];
+      }
+    } catch (error) {
+      hideToast(toastID);
+      showErrorToast("上传失败");
     }
+    return [];
   };
 
   return (
