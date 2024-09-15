@@ -38,6 +38,11 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
           name="google-site-verification"
           content="DTiRVawomypV2iRoz9UUw2P0wAxnPs-kffJl6MNevdM"
         />
+        <script
+          defer
+          src="http://192.9.239.128:3002/script.js"
+          data-website-id="6c935438-456b-40ff-b720-a5ea425a8d7c"
+        ></script>
       </head>
       <body className="debug-screens overflow-x-clip scroll-smooth">
         <ThemeProvider
