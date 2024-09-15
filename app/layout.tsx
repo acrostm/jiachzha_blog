@@ -15,7 +15,7 @@ import { Console } from "@/components/console";
 import { Favicon } from "@/components/favicon";
 import { Fingerprint } from "@/components/fingerprint";
 
-import { NICKNAME, SLOGAN, WEBSITE } from "@/constants";
+import { ImageAssets, NICKNAME, SLOGAN, WEBSITE } from "@/constants";
 import "@/styles/global.css";
 
 export const metadata: Metadata = {
@@ -31,11 +31,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
     <html suppressHydrationWarning lang="zh-CN">
       <head>
-        <link
-          rel="icon"
-          type="image/svg+xml"
-          href="/images/fuxiaochen-dark.svg"
-        />
+        <link rel="icon" type="image/svg+xml" href={ImageAssets.logoDark} />
         {/*TODO*/}
         {/* Google Search Console 验证 */}
         <meta
@@ -62,7 +58,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
           </TooltipProvider>
         </ThemeProvider>
       </body>
-      
+
       {/*TODO*/}
       {/* Google Analytics  */}
       {NODE_ENV === "production" && <GoogleAnalytics gaId="G-1MVP2JY3JG" />}

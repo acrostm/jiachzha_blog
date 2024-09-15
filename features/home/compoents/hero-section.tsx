@@ -39,7 +39,7 @@ export const HeroSection = () => {
           animationDelay: `${getDelay()}ms`,
         }}
       >
-        {NICKNAME}
+        Jiachen
       </strong>
       <div
         className={cn("animate-fade-up animate-ease-in-out")}
@@ -58,9 +58,9 @@ export const HeroSection = () => {
           animationDelay: `${getDelay()}ms`,
         }}
       >
-        喜欢
-        <span className={`font-semibold text-[#00d8ff]`}>React</span>、
-        <span className={`font-semibold text-[#007acc]`}>TypeScript</span>
+        专注
+        <span className={`font-semibold text-[#00d8ff]`}>TypeScript</span>、
+        <span className={`font-semibold text-[#007acc]`}>Java</span>
         <span className="ml-4">\owo/ ~</span>
       </p>
       <p
@@ -72,7 +72,7 @@ export const HeroSection = () => {
           animationDelay: `${getDelay()}ms`,
         }}
       >
-        我在这个网站记录我的成长，努力 💪 成为一个更好的程序员。
+        我在这个网站记录我的学习，努力 💪 ！
       </p>
       <div
         className={cn("flex space-x-4", "animate-fade-up animate-ease-in-out")}

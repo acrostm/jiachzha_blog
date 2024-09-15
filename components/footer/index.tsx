@@ -2,14 +2,7 @@ import React from "react";
 
 import Link from "next/link";
 
-import {
-  ImageAssets,
-  NICKNAME,
-  PATHS,
-  PATHS_MAP,
-  SLOGAN,
-  navItems,
-} from "@/constants";
+import { PATHS, PATHS_MAP, SLOGAN, navItems } from "@/constants";
 import { getSiteStatistics } from "@/features/statistics";
 import { cn } from "@/lib/utils";
 import { formatNum } from "@/utils";
@@ -66,30 +59,8 @@ export const Footer = async () => {
       </Wrapper>
 
       <Wrapper className="flex flex-col items-center justify-center space-y-1 pt-24 text-sm text-muted-foreground md:flex-row md:space-x-4 md:space-y-0">
-        <Link
-          target="_blank"
-          aria-label="#"
-          href="#"
-          className="order-2 flex items-center transition-colors hover:font-semibold hover:text-primary md:order-1"
-        >
-          <img
-            src="#"
-            alt="GONG_AN_NUMBER"
-            className="mr-1 size-[18px] -translate-y-px"
-          />
-          <span>#</span>
-        </Link>
-
-        <Link
-          target="_blank"
-          aria-label="#"
-          href="#"
-          className="order-1 flex items-center transition-colors hover:font-semibold hover:text-primary md:order-2"
-        >
-          #
-        </Link>
         <div className="order-3">
-          &copy; {new Date().getFullYear()} {NICKNAME}&nbsp;&nbsp;·&nbsp;&nbsp;
+          &copy; {new Date().getFullYear()} {`Jiachen`}&nbsp;&nbsp;·&nbsp;&nbsp;
           {SLOGAN}
         </div>
       </Wrapper>

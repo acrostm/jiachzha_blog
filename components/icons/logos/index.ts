@@ -4,3 +4,6 @@ export * from "./icon-logo-centos";
 export * from "./icon-logo-rocky-linux";
 export * from "./icon-logo-bing";
 export * from "./icon-logo-google";
+export * from "./icon-logo-zsh";
+export * from "./icon-logo-vscode";
+export * from "./icon-logo-webstorm";

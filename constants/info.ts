@@ -21,4 +21,4 @@ export const BILIBILI_PAGE = "https://space.bilibili.com/38521891";
 export const WEBSITE = `${NICKNAME}'s Blog`;
 
 /** Slogan */
-export const SLOGAN = "努力做一个更好的程序员";
+export const SLOGAN = "Stay hungry, stay foolish.";
