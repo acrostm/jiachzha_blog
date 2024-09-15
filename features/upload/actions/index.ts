@@ -10,7 +10,6 @@ import { R2_BUCKET, R2_UPLOAD_DIR } from "@/config";
 
 import { ERROR_NO_PERMISSION } from "@/constants";
 import { noPermission } from "@/features/user";
-import { createCuid } from "@/lib/cuid";
 import { s3 } from "@/lib/r2-storage";
 
 const getImageInfo = async (file: File) => {
@@ -45,7 +44,9 @@ const compressImage = async (file: File): Promise<Buffer> => {
 };
 
 const uploadToR2 = async (file: File, compressedFile: Buffer) => {
-  const key = `${R2_UPLOAD_DIR}${createCuid()}-${file.name}`;
+  const key = `${R2_UPLOAD_DIR}${new Date().toISOString().split("T")[0]}/${
+    file.name
+  }`;
 
   const uploadParams = {
     Bucket: R2_BUCKET,
@@ -54,21 +55,16 @@ const uploadToR2 = async (file: File, compressedFile: Buffer) => {
     ContentType: getContentType(file.name),
   };
 
-  try {
-    const command = new PutObjectCommand(uploadParams);
-    await s3.send(command);
+  const command = new PutObjectCommand(uploadParams);
+  await s3.send(command);
 
-    // Generate a signed URL that's valid for 1 hour (3600 seconds)
-    const getObjectParams = { Bucket: R2_BUCKET, Key: key };
-    const getCommand = new GetObjectCommand(getObjectParams);
-    const signedUrl = await getSignedUrl(s3, getCommand, { expiresIn: 3600 });
+  // Generate a signed URL that's valid for 1 hour (3600 seconds)
+  const getObjectParams = { Bucket: R2_BUCKET, Key: key };
+  const getCommand = new GetObjectCommand(getObjectParams);
+  const signedUrl = await getSignedUrl(s3, getCommand, { expiresIn: 3600 });
 
-    // Otherwise, return the signed URL
-    return signedUrl;
-  } catch (error) {
-    console.error("Error uploading file to R2:", error);
-    throw error;
-  }
+  // Otherwise, return the signed URL
+  return signedUrl;
 };
 
 const getContentType = (fileName: string): string => {
