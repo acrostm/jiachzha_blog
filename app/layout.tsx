@@ -40,8 +40,8 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
         />
         <script
           defer
-          src="http://192.9.239.128:3002/script.js"
-          data-website-id="6c935438-456b-40ff-b720-a5ea425a8d7c"
+          src="https://umami.zj.cyou/script.js"
+          data-website-id="42832d89-2285-45c2-90ab-d8cc8e71b3f6"
         ></script>
       </head>
       <body className="debug-screens overflow-x-clip scroll-smooth">
