@@ -18,6 +18,10 @@ export const navItems: Array<{
     link: PATHS.SITE_SNIPPET,
   },
   {
+    label: PATHS_MAP[PATHS.SITE_LAB],
+    link: PATHS.SITE_LAB,
+  },
+  {
     label: PATHS_MAP[PATHS.SITE_ABOUT],
     link: PATHS.SITE_ABOUT,
   },

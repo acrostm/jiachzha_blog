@@ -2,7 +2,7 @@
 export const EMAIL = "jiachzha@gmail.com";
 
 /** 昵称 */
-export const NICKNAME = "Jiachzha";
+export const NICKNAME = "Jiachen";
 
 /** Github 个人页 */
 export const GITHUB_PAGE = "https://github.com/acrostm";
@@ -21,4 +21,5 @@ export const BILIBILI_PAGE = "https://space.bilibili.com/38521891";
 export const WEBSITE = `${NICKNAME}'s Blog`;
 
 /** Slogan */
-export const SLOGAN = "Stay hungry, stay foolish.";
+export const SLOGAN =
+  "いちばん いけないのは じぶんなんか だめだと おもいこむ こと だよ。";
