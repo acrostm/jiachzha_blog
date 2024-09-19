@@ -2,17 +2,12 @@
 <g clip-path="url(#clip0_7_135)">
 <rect width="120" height="120" rx="29" fill="white"/>
 <rect width="120" height="120" rx="29" fill="#171718"/>
-<rect x="28" y="70" width="64" height="23" fill="#FEFEFE"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M65.4903 40C60.049 46.6764 51.7786 51.0661 42.4445 51.4495V51.4626C42.4445 51.4626 34.9206 51.9764 28 51.8326V70.3064H61.6935C78.4313 70.3064 92 56.7378 92 40L65.4903 40Z" fill="#FEFEFE"/>
-<line x1="28" y1="25" x2="92" y2="25" stroke="url(#paint0_linear_7_135)" stroke-width="6"/>
-<line x1="28" y1="25" x2="92" y2="25" stroke="url(#paint1_linear_7_135)" stroke-width="6"/>
+<rect x="28" y="73" width="64" height="23" fill="#FEFEFE"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M65.4903 43C60.049 49.6764 51.7786 54.0661 42.4445 54.4495V54.4626C42.4445 54.4626 34.9206 54.9764 28 54.8326V73.3064H61.6935C78.4313 73.3064 92 59.7378 92 43L65.4903 43Z" fill="#FEFEFE"/>
+<line x1="28" y1="27.5" x2="92" y2="27.5" stroke="url(#paint0_linear_7_135)" stroke-width="9"/>
 </g>
 <defs>
-<linearGradient id="paint0_linear_7_135" x1="28" y1="28.5" x2="92" y2="28.5" gradientUnits="userSpaceOnUse">
-<stop stop-color="#BACCF3"/>
-<stop offset="1" stop-color="#7AA4FF"/>
-</linearGradient>
-<linearGradient id="paint1_linear_7_135" x1="28" y1="28.5" x2="92" y2="28.5" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint0_linear_7_135" x1="28" y1="32.5" x2="92" y2="32.5" gradientUnits="userSpaceOnUse">
 <stop stop-color="#3E75EA"/>
 <stop offset="1" stop-color="#F35262"/>
 </linearGradient>
