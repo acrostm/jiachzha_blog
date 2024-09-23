@@ -17,13 +17,14 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 
+import { IconBrandGithub, IconLogoKuma } from "@/components/icons";
+
 import { NICKNAME, PATHS, SOURCE_CODE_GITHUB_PAGE, WEBSITE } from "@/constants";
 import { cn } from "@/lib/utils";
 
 import { navItems } from "./config";
 import { MobileNav } from "./mobile-nav";
 
-import { IconBrandGithub } from "../icons";
 import { Logo } from "../logo";
 import { ModeToggle } from "../mode-toggle";
 import { NextLink } from "../next-link";
@@ -56,7 +57,7 @@ export const Navbar = () => {
             <NavigationMenuList>
               {navItems.map((el) => (
                 <NavigationMenuItem key={el.link}>
-                  {el.link === PATHS.SITE_LAB ? (
+                  {el.external ? (
                     <>
                       <NavigationMenuTrigger
                         className={cn(
@@ -73,17 +74,20 @@ export const Navbar = () => {
                         <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                           <li className="row-span-3">
                             <NavigationMenuLink asChild>
-                              <a
+                              <Link
                                 className="flex size-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                                href={el.link}
+                                href={`https://kuma.zj.cyou/status/1`}
+                                target="_blank"
+                                rel="noreferrer"
                               >
+                                <IconLogoKuma className="size-20" />
                                 <div className="mb-2 mt-4 text-lg font-medium">
-                                  {el.label}
+                                  Uptime Kuma
                                 </div>
                                 <p className="text-sm leading-tight text-muted-foreground">
-                                  Explore the lab projects and experiments.
+                                  服务监控
                                 </p>
-                              </a>
+                              </Link>
                             </NavigationMenuLink>
                           </li>
                           <LabItem href={el.link} title="Project 1">
