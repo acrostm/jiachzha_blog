@@ -6,6 +6,7 @@ export const PATHS = {
   SITE_BLOG: "/blog",
   SITE_SNIPPET: "/snippet",
   SITE_LAB: "/comingSoon",
+  SITE_REGISTER: "/register",
   SITE_ABOUT: "/about",
   SITEMAP: "/sitemap.xml",
 

@@ -17,7 +17,11 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 
-import { IconBrandGithub, IconLogoKuma } from "@/components/icons";
+import {
+  IconBrandGithub,
+  IconLogoKuma,
+  IconLogoUmami,
+} from "@/components/icons";
 
 import { NICKNAME, PATHS, SOURCE_CODE_GITHUB_PAGE, WEBSITE } from "@/constants";
 import { cn } from "@/lib/utils";
@@ -90,8 +94,17 @@ export const Navbar = () => {
                               </Link>
                             </NavigationMenuLink>
                           </li>
-                          <LabItem href={el.link} title="Project 1">
-                            Description of Project 1 in the lab.
+                          <LabItem
+                            href={`https://umami.zj.cyou/share/UhCPLa7xAktvaMnP/jiachzha.com`}
+                            target="_blank"
+                            title={
+                              <div className="flex items-center">
+                                <IconLogoUmami className="mr-2 size-4" />
+                                <span>Umami</span>
+                              </div>
+                            }
+                          >
+                            流量监控
                           </LabItem>
                           <LabItem href={el.link} title="Project 2">
                             Description of Project 2 in the lab.

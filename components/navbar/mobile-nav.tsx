@@ -17,6 +17,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+import { IconLogoUmami } from "@/components/icons";
+
 import { SLOGAN, WEBSITE } from "@/constants";
 import { cn } from "@/lib/utils";
 
@@ -85,9 +87,7 @@ export const MobileNav = () => {
                           buttonVariants({
                             variant:
                               pathname ===
-                              `${el.link}
-                                    .toLowerCase()
-                                    .replace(" ", "-")}`
+                              `${el.link.toLowerCase().replace(" ", "-")}`
                                 ? "default"
                                 : "ghost",
                           }),
@@ -98,18 +98,22 @@ export const MobileNav = () => {
                           setSubMenuOpen(false);
                         }}
                       >
-                        <EggFried color="#8bdb99" />
+                        <EggFried
+                          color="#8bdb99"
+                          width={16}
+                          height={16}
+                          className={"mr-2"}
+                        />
                         Uptime Kuma
                       </Link>
                       <Link
-                        href={`/comingSoon`}
+                        href={`https://umami.zj.cyou/share/UhCPLa7xAktvaMnP/jiachzha.com`}
+                        target={"_blank"}
                         className={cn(
                           buttonVariants({
                             variant:
                               pathname ===
-                              `${el.link}
-                                    .toLowerCase()
-                                    .replace(" ", "-")}`
+                              `${el.link.toLowerCase().replace(" ", "-")}`
                                 ? "default"
                                 : "ghost",
                           }),
@@ -117,9 +121,11 @@ export const MobileNav = () => {
                         )}
                         onClick={() => {
                           setOpen(false);
+                          setSubMenuOpen(false);
                         }}
                       >
-                        Project 1
+                        <IconLogoUmami className="mr-2 size-4" />
+                        Umami
                       </Link>
                       <Link
                         href={`/comingSoon`}
@@ -127,9 +133,7 @@ export const MobileNav = () => {
                           buttonVariants({
                             variant:
                               pathname ===
-                              `${el.link}
-                                    .toLowerCase()
-                                    .replace(" ", "-")}`
+                              `${el.link.toLowerCase().replace(" ", "-")}`
                                 ? "default"
                                 : "ghost",
                           }),
@@ -147,9 +151,7 @@ export const MobileNav = () => {
                           buttonVariants({
                             variant:
                               pathname ===
-                              `${el.link}
-                                    .toLowerCase()
-                                    .replace(" ", "-")}`
+                              `${el.link.toLowerCase().replace(" ", "-")}`
                                 ? "default"
                                 : "ghost",
                           }),
