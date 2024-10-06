@@ -85,14 +85,14 @@ export default function AuthenticationPage() {
             <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link
-                href="/comingSoon"
+                href="/coming-soon"
                 className="underline underline-offset-4 hover:text-primary"
               >
                 Terms of Service
               </Link>{" "}
               and{" "}
               <Link
-                href="/comingSoon"
+                href="/coming-soon"
                 className="underline underline-offset-4 hover:text-primary"
               >
                 Privacy Policy

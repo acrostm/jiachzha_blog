@@ -128,7 +128,7 @@ export const MobileNav = () => {
                         Umami
                       </Link>
                       <Link
-                        href={`/comingSoon`}
+                        href={`/coming-soon`}
                         className={cn(
                           buttonVariants({
                             variant:
@@ -146,7 +146,7 @@ export const MobileNav = () => {
                         Project 2
                       </Link>
                       <Link
-                        href={`/comingSoon`}
+                        href={`/coming-soon`}
                         className={cn(
                           buttonVariants({
                             variant:

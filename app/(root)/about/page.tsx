@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 
 import {
   IconBrandGithub,
+  IconLogoCloudflare,
   IconLogoGoogle,
   IconLogoVscodeDark,
   IconLogoVscodeLight,
@@ -12,8 +13,6 @@ import {
   IconLogoZshDark,
   IconLogoZshLight,
   IconSkillCSS,
-  IconSkillDebianDark,
-  IconSkillDebianLight,
   IconSkillDocker,
   IconSkillFigmaDark,
   IconSkillFigmaLight,
@@ -32,6 +31,8 @@ import {
   IconSkillNginx,
   IconSkillNodejsDark,
   IconSkillNodejsLight,
+  IconSkillPostgresqlDark,
+  IconSkillPostgresqlLight,
   IconSkillPrisma,
   IconSkillReactDark,
   IconSkillReactLight,
@@ -71,7 +72,7 @@ export default function Page() {
           <h2>我是谁</h2>
           <p>
             Hi, 我是Jiachen
-            ，一名软件开发工程师，2021年毕业，通信行业工作一年，主要做设备Linux系统嵌入式软开，目前自学前后端开发中~~~
+            ，一名软件开发工程师，2021年毕业，通信行业软件开发工作一年，目前自学前后端开发中~~~
           </p>
         </div>
 
@@ -147,7 +148,12 @@ export default function Page() {
                 <IconSkillMybatisDark className="mx-1 inline-block translate-y-0.5 dark:hidden" />
                 <IconSkillMybatisLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
               </>
-              MyBatis，学习中
+              MyBatis +
+              <>
+                <IconSkillMysqlDark className="mx-1 translate-y-0.5 dark:hidden" />
+                <IconSkillMysqlLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
+              </>
+              Mysql，学习中
             </li>
             <li>
               <>
@@ -160,73 +166,6 @@ export default function Page() {
                 <IconSkillNestjsLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
               </>
               Nest.js，学习中
-            </li>
-            <li>
-              <>
-                <IconSkillNextjsDark className="mx-1 translate-y-0.5 dark:hidden" />
-                <IconSkillNextjsLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
-              </>
-              Next.js + <IconSkillPrisma className="mx-1 translate-y-0.5" />
-              Prisma +
-              <>
-                <IconSkillMysqlDark className="mx-1 translate-y-0.5 dark:hidden" />
-                <IconSkillMysqlLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
-              </>
-              MySQL，学习中
-            </li>
-          </ul>
-        </div>
-        <div
-          className="animate-fade-up animate-ease-in-out"
-          style={{
-            animationDelay: `${getDelay()}ms`,
-          }}
-        >
-          <h3>开发工具</h3>
-          <ul>
-            <li>
-              <>
-                <IconLogoWebstormDark className="mx-1 translate-y-0.5 dark:hidden" />
-                <IconLogoWebstormLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
-              </>
-              WebStorm +
-              <>
-                <IconLogoVscodeDark className="mx-1 translate-y-0.5 dark:hidden" />
-                <IconLogoVscodeLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
-              </>
-              VSCode
-            </li>
-            <li>
-              <>
-                <IconLogoZshDark className="mx-1 inline-block translate-y-0.5 dark:hidden" />
-                <IconLogoZshLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
-              </>
-              Zsh + Oh My Zsh + Warp + Termius
-            </li>
-            <li>
-              主要使用
-              <>
-                <IconSkillUbuntuDark
-                  className="mx-1
-                  translate-y-0.5 dark:hidden"
-                />
-                <IconSkillUbuntuLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
-              </>
-              Ubuntu、 使用过
-              <>
-                <IconSkillDebianDark className="mx-1 translate-y-0.5 dark:hidden" />
-                <IconSkillDebianLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
-              </>
-              Debian
-            </li>
-            <li>
-              <IconSkillDocker className="mx-1 translate-y-0.5" />
-              Docker + 1Panel
-            </li>
-            <li>
-              使用
-              <IconSkillNginx className="mx-1 translate-y-0.5" />
-              NGINX + OpenResty 反向代理 + 配置 HTTPS
             </li>
             <li>
               <>
@@ -245,6 +184,69 @@ export default function Page() {
                 <IconSkillStackoverflowLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
               </>
               Stack Overflow + Chat GPT 解决遇到的各种问题
+            </li>
+          </ul>
+        </div>
+        <div
+          className="animate-fade-up animate-ease-in-out"
+          style={{
+            animationDelay: `${getDelay()}ms`,
+          }}
+        >
+          <h3>本站技术栈</h3>
+          <ul>
+            <li>
+              <>
+                <IconSkillNextjsDark className="mx-1 translate-y-0.5 dark:hidden" />
+                <IconSkillNextjsLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
+              </>
+              Next.js + <IconSkillPrisma className="mx-1 translate-y-0.5" />
+              Prisma +
+              <>
+                <IconSkillPostgresqlDark className="mx-1 translate-y-0.5 dark:hidden" />
+                <IconSkillPostgresqlLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
+              </>
+              Postgresql
+            </li>
+            <li>
+              <>
+                <IconLogoWebstormDark className="mx-1 translate-y-0.5 dark:hidden" />
+                <IconLogoWebstormLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
+              </>
+              WebStorm +
+              <>
+                <IconLogoVscodeDark className="mx-1 translate-y-0.5 dark:hidden" />
+                <IconLogoVscodeLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
+              </>
+              VSCode
+            </li>
+            <li>
+              <>
+                <IconLogoZshDark className="mx-1 inline-block translate-y-0.5 dark:hidden" />
+                <IconLogoZshLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
+              </>
+              Zsh + Oh My Zsh + Termius
+            </li>
+            <li>
+              <>
+                <IconSkillUbuntuDark
+                  className="mx-1
+                  translate-y-0.5 dark:hidden"
+                />
+                <IconSkillUbuntuLight className="mx-1 hidden translate-y-0.5 dark:inline-block" />
+              </>
+              Ubuntu
+            </li>
+            <li>
+              <IconSkillDocker className="mx-1 translate-y-0.5" />
+              Docker + 1Panel
+            </li>
+            <li>
+              使用
+              <IconSkillNginx className="mx-1 translate-y-0.5" />
+              NGINX + OpenResty 反向代理 +
+              <IconLogoCloudflare className="mx-1 w-6 translate-y-0.5" />
+              Cloudflare 配置 DNS, HTTPS
             </li>
           </ul>
         </div>

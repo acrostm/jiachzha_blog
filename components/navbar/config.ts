@@ -21,8 +21,8 @@ export const navItems: Array<{
     external: false,
   },
   {
-    label: PATHS_MAP[PATHS.SITE_LAB],
-    link: PATHS.SITE_LAB,
+    label: PATHS_MAP[PATHS.SITE_COMING],
+    link: PATHS.SITE_COMING,
     external: true,
   },
   {

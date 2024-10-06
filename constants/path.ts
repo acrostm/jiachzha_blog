@@ -5,7 +5,7 @@ export const PATHS = {
   SITE_HOME: "/",
   SITE_BLOG: "/blog",
   SITE_SNIPPET: "/snippet",
-  SITE_LAB: "/comingSoon",
+  SITE_COMING: "/coming-soon",
   SITE_REGISTER: "/register",
   SITE_ABOUT: "/about",
   SITEMAP: "/sitemap.xml",
@@ -35,7 +35,8 @@ export const PATHS_MAP: Record<string, string> = {
   [PATHS.SITE_HOME]: "首页",
   [PATHS.SITE_BLOG]: "博客",
   [PATHS.SITE_SNIPPET]: "片段",
-  [PATHS.SITE_LAB]: "实验室",
+  [PATHS.SITE_COMING]: "实验室",
+  [PATHS.SITE_REGISTER]: "注册",
   [PATHS.SITE_ABOUT]: "关于",
   [PATHS.SITEMAP]: "站点地图",
 
@@ -58,8 +59,10 @@ export const PATHS_MAP: Record<string, string> = {
 export const PATH_DESCRIPTION_MAP: Record<string, string> = {
   /** ************* SITE ****************** */
   [PATHS.SITE_HOME]: "首页",
-  [PATHS.SITE_BLOG]: "这里记录了我的想法、文章，希望和大家一起交流～",
-  [PATHS.SITE_SNIPPET]: "多是一些零零碎碎的片段，通常是代码片段",
+  [PATHS.SITE_BLOG]: "这里记录了我的想法、文章，以及一些技术分享",
+  [PATHS.SITE_SNIPPET]: "代码片段，零碎片段等",
+  [PATHS.SITE_COMING]: "实验室，这里会有一些实验性的东西",
+  [PATHS.SITE_REGISTER]: "注册一个账号，加入我们",
   [PATHS.SITE_ABOUT]: `叮～ 你有一份关于${NICKNAME}的简介，请查收～`,
 
   /** ************* ADMIN ****************** */
