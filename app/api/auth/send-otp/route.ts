@@ -1,14 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 import { ActivityStatus, ResourceType } from "@prisma/client";
-import { Resend } from "resend";
+import { randomInt } from "node:crypto";
 
 import { auth } from "@/lib/auth";
+import { sendOtpEmail } from "@/lib/email";
 import { notifyOtpCode } from "@/lib/notification";
 import { prisma } from "@/lib/prisma";
 import { safeLogActivity } from "@/lib/utils/activity-logger-helper";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   try {
@@ -54,8 +53,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 生成6位随机OTP
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    // 生成6位安全随机OTP
+    const otp = randomInt(100000, 1000000).toString();
 
     // 保存OTP到数据库（有效期60秒）
     const expiresAt = new Date(Date.now() + 60 * 1000);
@@ -69,30 +68,7 @@ export async function POST(req: NextRequest) {
     });
 
     // 发送邮件
-    const subject =
-      type === "password-change" ? "修改密码验证码" : "邮箱验证码";
-    const title = type === "password-change" ? "修改密码验证码" : "邮箱验证码";
-    const description =
-      type === "password-change"
-        ? "您正在修改密码，验证码是："
-        : "您的验证码是：";
-
-    await resend.emails.send({
-      from: "noreply@jiachz.com",
-      to: userEmail,
-      subject,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h2 style="color: #333; text-align: center;">${title}</h2>
-          <p style="color: #666; font-size: 16px;">${description}</p>
-          <div style="background: #f5f5f5; padding: 20px; text-align: center; font-size: 32px; font-weight: bold; color: #333; letter-spacing: 5px; margin: 20px 0;">
-            ${otp}
-          </div>
-          <p style="color: #666; font-size: 14px;">此验证码有效期为60秒，请尽快使用。</p>
-          <p style="color: #666; font-size: 14px;">如果您没有请求此验证码，请忽略此邮件。</p>
-        </div>
-      `,
-    });
+    await sendOtpEmail({ code: otp, to: userEmail, type });
 
     // 发送bark通知
     try {
