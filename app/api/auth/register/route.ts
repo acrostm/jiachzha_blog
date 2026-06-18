@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { checkBotId } from "botid/server";
 
 import { activityLogger } from "@/lib/activity-logger";
+import { sendWelcomeEmail } from "@/lib/email";
 import { notifyNewUserRegistered } from "@/lib/notification";
 import { prisma } from "@/lib/prisma";
 
@@ -86,6 +87,14 @@ export async function POST(req: NextRequest) {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Failed to send new user Bark notification:", error);
+    }
+
+    try {
+      await sendWelcomeEmail({ name, to: email });
+    } catch (error) {
+      // Welcome email failure must not block account creation.
+      // eslint-disable-next-line no-console
+      console.error("Failed to send welcome email:", error);
     }
 
     // 记录注册成功日志
