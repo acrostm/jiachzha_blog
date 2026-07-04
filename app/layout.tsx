@@ -1,6 +1,6 @@
 import React from "react";
 
-import { type Metadata } from "next";
+import { type Metadata, type Viewport } from "next";
 
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
@@ -21,6 +21,48 @@ import { FutureShell } from "@/components/future-shell";
 import { ImageAssets, NICKNAME, SLOGAN, WEBSITE } from "@/constants";
 import "@/styles/global.css";
 
+const noirCompatThemeScript = `
+(() => {
+  try {
+    const root = document.documentElement;
+    const darkMedia = window.matchMedia("(prefers-color-scheme: dark)");
+    const resolveScheme = () => {
+      const storedTheme = window.localStorage.getItem("theme");
+      if (storedTheme === "dark" || storedTheme === "light") {
+        return storedTheme;
+      }
+      return darkMedia.matches ? "dark" : "light";
+    };
+    const syncScheme = () => {
+      const scheme = resolveScheme();
+      const isDark = scheme === "dark";
+      root.dataset.colorScheme = scheme;
+      root.style.colorScheme = scheme;
+      root.classList.toggle("dark", isDark);
+      root.classList.toggle("light", !isDark);
+    };
+    syncScheme();
+    if (darkMedia.addEventListener) {
+      darkMedia.addEventListener("change", syncScheme);
+    } else {
+      darkMedia.addListener?.(syncScheme);
+    }
+    new MutationObserver(() => {
+      const scheme = root.classList.contains("dark")
+        ? "dark"
+        : root.classList.contains("light")
+          ? "light"
+          : resolveScheme();
+      root.dataset.colorScheme = scheme;
+      root.style.colorScheme = scheme;
+    }).observe(root, { attributes: true, attributeFilter: ["class"] });
+  } catch {
+    document.documentElement.dataset.colorScheme = "dark";
+    document.documentElement.style.colorScheme = "dark";
+  }
+})();
+`;
+
 export const metadata: Metadata = {
   title: {
     template: `%s - ${WEBSITE}`,
@@ -30,14 +72,28 @@ export const metadata: Metadata = {
   keywords: NICKNAME,
 };
 
+export const viewport: Viewport = {
+  colorScheme: "dark light",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#050506" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f1e8" },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html
+      lang="zh-CN"
+      data-color-scheme="dark"
+      style={{ colorScheme: "dark" }}
+      suppressHydrationWarning
+    >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: noirCompatThemeScript }} />
         <link rel="icon" type="image/svg+xml" href={ImageAssets.logoDark} />
         {/*TODO*/}
         {/* Google Search Console 验证 */}

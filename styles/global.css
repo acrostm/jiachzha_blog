@@ -9,6 +9,7 @@
 
 @layer base {
   :root {
+    color-scheme: light dark;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -60,7 +61,9 @@
     --future-blur: 30px;
   }
 
+  :root[data-color-scheme="dark"],
   .dark {
+    color-scheme: only dark;
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
@@ -110,6 +113,11 @@
       inset 0 -1px 0 rgb(255 255 255 / 0.04);
   }
 
+  :root[data-color-scheme="light"],
+  .light {
+    color-scheme: only light;
+  }
+
   *,
   ::before,
   ::after {
@@ -130,7 +138,9 @@
 }
 /* 适配 shiki 深色模式 */
 html.dark .shiki,
-html.dark .shiki span {
+html.dark .shiki span,
+html[data-color-scheme="dark"] .shiki,
+html[data-color-scheme="dark"] .shiki span {
   color: var(--shiki-dark) !important;
   background-color: var(--shiki-dark-bg) !important;
   font-style: var(--shiki-dark-font-style) !important;
@@ -201,7 +211,9 @@ html.dark .shiki span {
       inset 0 1px 0 rgb(255 255 255 / 0.62),
       inset 0 -1px 0 rgb(255 255 255 / 0.24);
     --future-blur: 30px;
+    color-scheme: only light;
     @apply relative isolate overflow-x-clip text-[var(--future-ink)];
+    background-color: var(--future-bg);
     background: linear-gradient(
       180deg,
       var(--future-bg),
@@ -209,6 +221,7 @@ html.dark .shiki span {
     );
   }
 
+  :root[data-color-scheme="dark"] .future-site,
   .dark .future-site {
     --background: 240 9% 4%;
     --foreground: 35 47% 94%;
@@ -249,6 +262,7 @@ html.dark .shiki span {
     --future-inner:
       inset 0 1px 0 rgb(255 255 255 / 0.12),
       inset 0 -1px 0 rgb(255 255 255 / 0.04);
+    color-scheme: only dark;
   }
 
   .future-site::before {
@@ -403,6 +417,7 @@ html.dark .shiki span {
 
   .future-nav-glass {
     border-bottom: 1px solid var(--future-line);
+    background: var(--future-glass);
     background: color-mix(in srgb, var(--future-bg) 62%, transparent);
     box-shadow:
       0 20px 70px rgb(0 0 0 / 0.12),
