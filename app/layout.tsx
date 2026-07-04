@@ -21,6 +21,19 @@ import { FutureShell } from "@/components/future-shell";
 import { ImageAssets, NICKNAME, SLOGAN, WEBSITE } from "@/constants";
 import "@/styles/global.css";
 
+const safariCompatScript = `(() => {
+  const ua = navigator.userAgent;
+  const vendor = navigator.vendor || "";
+  const isSafari =
+    vendor.includes("Apple") &&
+    /Safari/.test(ua) &&
+    !/(CriOS|FxiOS|EdgiOS|OPiOS|Chrome|Chromium|Android)/.test(ua);
+
+  if (isSafari) {
+    document.documentElement.dataset.browser = "safari";
+  }
+})();`;
+
 export const metadata: Metadata = {
   title: {
     template: `%s - ${WEBSITE}`,
@@ -45,6 +58,9 @@ export default function RootLayout({
           name="google-site-verification"
           content="DTiRVawomypV2iRoz9UUw2P0wAxnPs-kffJl6MNevdM"
         />
+        <script
+          dangerouslySetInnerHTML={{ __html: safariCompatScript }}
+        ></script>
         <script
           defer
           src="https://umami.jiachz.com/script.js"

@@ -143,12 +143,15 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "safari >= 15.6",
+      "ios_saf >= 15.6"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 2 safari versions",
+      "last 2 ios_saf versions"
     ]
   },
   "engines": {

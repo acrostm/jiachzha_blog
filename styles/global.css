@@ -310,6 +310,7 @@ html.dark .shiki span {
       linear-gradient(rgb(255 255 255 / 0.055) 1px, transparent 1px),
       linear-gradient(90deg, rgb(255 255 255 / 0.055) 1px, transparent 1px);
     background-size: 48px 48px;
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent 84%);
     mask-image: linear-gradient(to bottom, black, transparent 84%);
   }
 
@@ -403,6 +404,7 @@ html.dark .shiki span {
 
   .future-nav-glass {
     border-bottom: 1px solid var(--future-line);
+    background: rgb(247 241 232 / 0.72);
     background: color-mix(in srgb, var(--future-bg) 62%, transparent);
     box-shadow:
       0 20px 70px rgb(0 0 0 / 0.12),
@@ -417,6 +419,86 @@ html.dark .shiki span {
     color: var(--future-ink);
     -webkit-backdrop-filter: blur(22px) saturate(1.24);
     backdrop-filter: blur(22px) saturate(1.24);
+  }
+
+  .dark .future-nav-glass {
+    background: rgb(5 5 6 / 0.72);
+    background: color-mix(in srgb, var(--future-bg) 62%, transparent);
+  }
+
+  html[data-browser="safari"] .future-site {
+    --future-glass: rgb(255 251 244 / 0.64);
+    --future-glass-strong: rgb(255 253 249 / 0.84);
+    --future-panel: var(--future-glass);
+    --future-panel-strong: var(--future-glass-strong);
+    --future-control: rgb(255 253 249 / 0.62);
+    --future-shadow: 0 24px 72px rgb(83 58 39 / 0.16);
+    --future-blur: 22px;
+  }
+
+  html[data-browser="safari"].dark .future-site {
+    --future-glass: rgb(14 15 20 / 0.64);
+    --future-glass-strong: rgb(17 18 24 / 0.78);
+    --future-panel: var(--future-glass);
+    --future-panel-strong: var(--future-glass-strong);
+    --future-control: rgb(255 255 255 / 0.08);
+    --future-shadow: 0 22px 72px rgb(0 0 0 / 0.38);
+  }
+
+  html[data-browser="safari"] .future-site::before,
+  html[data-browser="safari"] .future-site::after {
+    mix-blend-mode: normal;
+  }
+
+  html[data-browser="safari"] .future-site::before {
+    opacity: 0.12;
+  }
+
+  html[data-browser="safari"] .future-site::after {
+    opacity: 0.1;
+  }
+
+  html[data-browser="safari"] .future-ambient {
+    position: absolute;
+    min-height: 100%;
+    contain: paint;
+  }
+
+  html[data-browser="safari"] .future-ambient__grid {
+    opacity: 0.72;
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent 82%);
+    mask-image: linear-gradient(to bottom, black, transparent 82%);
+  }
+
+  html[data-browser="safari"] .future-ambient__blob {
+    filter: blur(46px);
+    opacity: 0.56;
+  }
+
+  html[data-browser="safari"] .future-glass,
+  html[data-browser="safari"] .future-panel,
+  html[data-browser="safari"] .future-glass-strong,
+  html[data-browser="safari"] .future-panel-strong,
+  html[data-browser="safari"] .future-card,
+  html[data-browser="safari"] .future-nav-glass,
+  html[data-browser="safari"] .future-control-glass {
+    -webkit-backdrop-filter: blur(var(--future-blur)) saturate(1.18);
+    backdrop-filter: blur(var(--future-blur)) saturate(1.18);
+    transform: translateZ(0);
+  }
+
+  html[data-browser="safari"] .future-nav-glass {
+    background: rgb(247 241 232 / 0.76);
+  }
+
+  html[data-browser="safari"].dark .future-nav-glass {
+    background: rgb(5 5 6 / 0.76);
+  }
+
+  @supports not (overflow: clip) {
+    [class~="overflow-x-clip"] {
+      overflow-x: hidden;
+    }
   }
 
   .future-label {
