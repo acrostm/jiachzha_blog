@@ -51,6 +51,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <head>
+        <meta name="color-scheme" content="light dark" />
         <link rel="icon" type="image/svg+xml" href={ImageAssets.logoDark} />
         {/*TODO*/}
         {/* Google Search Console 验证 */}

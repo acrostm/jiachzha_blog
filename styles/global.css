@@ -202,6 +202,7 @@ html.dark .shiki span {
       inset 0 -1px 0 rgb(255 255 255 / 0.24);
     --future-blur: 30px;
     @apply relative isolate overflow-x-clip text-[var(--future-ink)];
+    color-scheme: light;
     background: linear-gradient(
       180deg,
       var(--future-bg),
@@ -246,6 +247,7 @@ html.dark .shiki span {
     --future-rose-soft: rgb(202 90 121 / 0.13);
     --future-signal-soft: rgb(125 92 255 / 0.13);
     --future-shadow: 0 24px 90px rgb(0 0 0 / 0.44);
+    color-scheme: dark;
     --future-inner:
       inset 0 1px 0 rgb(255 255 255 / 0.12),
       inset 0 -1px 0 rgb(255 255 255 / 0.04);
@@ -442,6 +444,9 @@ html.dark .shiki span {
     --future-panel: var(--future-glass);
     --future-panel-strong: var(--future-glass-strong);
     --future-control: rgb(255 255 255 / 0.08);
+    --future-accent-soft: rgb(223 114 69 / 0.24);
+    --future-cyan-soft: rgb(34 211 238 / 0.22);
+    --future-gold-soft: rgb(227 173 93 / 0.14);
     --future-shadow: 0 22px 72px rgb(0 0 0 / 0.38);
   }
 
@@ -465,9 +470,18 @@ html.dark .shiki span {
   }
 
   html[data-browser="safari"] .future-ambient__grid {
-    opacity: 0.72;
+    opacity: 0.9;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.075) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.075) 1px, transparent 1px);
     -webkit-mask-image: linear-gradient(to bottom, black, transparent 82%);
     mask-image: linear-gradient(to bottom, black, transparent 82%);
+  }
+
+  html[data-browser="safari"].dark .future-ambient__grid {
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.085) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.085) 1px, transparent 1px);
   }
 
   html[data-browser="safari"] .future-ambient__blob {
