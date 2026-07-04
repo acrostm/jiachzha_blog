@@ -7,7 +7,7 @@ export const revalidate = 60;
 export default function Page() {
   return (
     <>
-      <div className="relative min-h-[calc(100vh-64px)] overflow-hidden supports-[height:100svh]:min-h-[calc(100svh-64px)]">
+      <div className="relative min-h-[calc(100vh-64px)] overflow-hidden">
         <HeroSection />
         <div className="absolute inset-x-0 bottom-8 grid place-content-center md:bottom-12">
           <IntroScrollMouse />

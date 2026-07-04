@@ -77,7 +77,7 @@ export const HeroSection = () => {
   return (
     <section
       ref={scope}
-      className="mx-auto grid min-h-[calc(100vh-64px)] w-full max-w-screen-2xl content-start items-start gap-12 px-6 pb-28 pt-14 supports-[height:100svh]:min-h-[calc(100svh-64px)] md:grid-cols-[minmax(0,1fr)_minmax(340px,480px)] md:px-10 md:pb-28 md:pt-20 lg:px-16 lg:pt-24 xl:pt-28"
+      className="mx-auto grid min-h-[calc(100vh-64px)] w-full max-w-screen-2xl items-center gap-12 px-6 py-16 md:grid-cols-[minmax(0,1fr)_minmax(340px,480px)] md:px-10 lg:px-16"
     >
       <div className="max-w-4xl">
         <div data-hero-reveal className="mb-8 flex items-center gap-3">
