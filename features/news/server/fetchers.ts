@@ -1,5 +1,7 @@
 import { createHash } from "node:crypto";
 
+import { logger } from "@/lib/logger";
+
 import type { NewsItem } from "../types";
 
 const REQUEST_TIMEOUT_MS = 10_000;
@@ -1305,6 +1307,15 @@ const STEAM_APP_NAMES: Record<number, string> = {
 
 const steamNameCache = new Map<number, string>();
 
+type SteamAppDetailsResponse = Record<
+  number,
+  {
+    data?: {
+      name?: string;
+    };
+  }
+>;
+
 const resolveSteamGameName = async (appid: number): Promise<string> => {
   if (STEAM_APP_NAMES[appid]) {
     return STEAM_APP_NAMES[appid];
@@ -1314,10 +1325,10 @@ const resolveSteamGameName = async (appid: number): Promise<string> => {
   }
 
   try {
-    const data = await fetchJson<any>(
+    const data = await fetchJson<SteamAppDetailsResponse>(
       `https://store.steampowered.com/api/appdetails?appids=${appid}&filters=basic&l=zh-cn`,
     );
-    const name = data?.[appid]?.data?.name;
+    const name = data[appid]?.data?.name;
     if (name) {
       steamNameCache.set(appid, name);
       return name;
@@ -1345,12 +1356,12 @@ const getSteam = async () => {
       "https://api.steampowered.com/ISteamChartsService/GetGamesByConcurrentPlayers/v1/",
     );
     const ranks = data?.response?.ranks ?? [];
-    
+
     const items = await Promise.all(
       ranks.slice(0, 30).map(async (item) => {
         const appid = item.appid;
         const name = await resolveSteamGameName(appid);
-        
+
         return {
           id: String(appid),
           title: name,
@@ -1365,7 +1376,7 @@ const getSteam = async () => {
 
     return normalizeItems(items);
   } catch (error) {
-    console.error("Failed to fetch steam news:", error);
+    logger.error("Failed to fetch steam news:", error);
     return [];
   }
 };

@@ -3,7 +3,7 @@ name: Database Backup to R2 (1panel Style)
 on:
   schedule:
     # 每 12 小时执行一次 (UTC 0, 12)
-    - cron: '0 */12 * * *'
+    - cron: "0 */12 * * *"
   workflow_dispatch: # 允许手动触发测试
 
 jobs:
@@ -36,16 +36,16 @@ jobs:
           # 获取具体时间作为文件名 (例如 2026-04-05_14-30-00)
           TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
           FILENAME="db_backup_${TIMESTAMP}.sql"
-          
+
           # 定义 R2 上的完整路径: database/YYYY-MM/filename.sql
           UPLOAD_PATH="database/${YEAR_MONTH}/${FILENAME}"
-          
+
           echo "Starting database dump for $FILENAME using pg_dump 17..."
           # 明确使用 pg_dump 17 的路径
           /usr/lib/postgresql/17/bin/pg_dump "$DATABASE_URL" --clean --if-exists > dump.sql
-          
+
           echo "Uploading to R2 bucket '$R2_BUCKET' at path '$UPLOAD_PATH'..."
           # 使用 aws-cli 上传
           aws s3 cp dump.sql "s3://${R2_BUCKET}/${UPLOAD_PATH}" --endpoint-url $R2_ENDPOINT --region auto
-          
+
           echo "✅ Backup successfully stored at: ${R2_BUCKET}/${UPLOAD_PATH}"
