@@ -47,7 +47,7 @@ export const MobileNav = () => {
           size="icon"
           aria-label="菜单"
           className={cn(
-            "border-[var(--future-line)] bg-white/[0.04] text-[var(--future-ink)] sm:hidden",
+            "border-[var(--future-line)] bg-white/[0.04] text-[var(--future-ink)] lg:hidden",
           )}
         >
           <MenuIcon className="size-4" />

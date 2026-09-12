@@ -53,7 +53,7 @@ export const Navbar = () => {
           "border-[var(--future-line)] shadow-[0_18px_70px_rgb(0_0_0/0.2)]",
       )}
     >
-      <div className="flex h-16 w-full items-center px-4 sm:px-8 md:max-w-screen-md 2xl:max-w-screen-xl">
+      <div className="flex h-16 w-full max-w-screen-xl items-center px-4 sm:px-8">
         <NextLink
           href={PATHS.SITE_HOME}
           className={cn("mr-4 hidden items-center gap-3 sm:flex")}
@@ -66,7 +66,7 @@ export const Navbar = () => {
             {WEBSITE}
           </span>
         </NextLink>
-        <div className="mr-8 hidden h-16 flex-1 items-center justify-end text-base font-medium sm:flex">
+        <div className="mr-8 hidden h-16 flex-1 items-center justify-end text-base font-medium lg:flex">
           <NavigationMenu>
             <NavigationMenuList className="future-control-glass gap-1 rounded-full p-1">
               {navItems.map((el) => (
@@ -74,7 +74,7 @@ export const Navbar = () => {
                   <Link
                     href={el.link}
                     className={cn(
-                      "rounded-full px-3 py-1.5 text-xs font-medium text-[var(--future-muted)] transition-colors",
+                      "whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium text-[var(--future-muted)] transition-colors",
                       "hover:text-[var(--future-ink)]",
                       "bg-transparent hover:bg-white/20 focus:bg-white/20 dark:hover:bg-white/10 dark:focus:bg-white/10",
                       pathname === el.link &&
@@ -89,7 +89,7 @@ export const Navbar = () => {
           </NavigationMenu>
         </div>
         <MobileNav />
-        <div className="flex flex-1 items-center justify-end gap-2 sm:flex-none">
+        <div className="flex flex-1 items-center justify-end gap-2 lg:flex-none">
           <ModeToggle />
           <Link
             href={SOURCE_CODE_GITHUB_PAGE}
